@@ -26,9 +26,18 @@ run and use **Run now** without promising the original two-pick scenario.
 | 5. Inspect, don't guess (2 min) | "Find the latest run's trace and explain where the time went." Show API/shop spans and the learner/ranker model calls. Then ask for the tracked browser's activity or error logs through Aspire. | Service-default telemetry and AI spans expose backend/model behavior; `WithBrowserLogs()` brings the tracked Edge browser's diagnostics into the same tooling. Prompt capture is development-only. |
 | 6. Verify persisted reality (1 min) | "Through the Aspire MCP gateway, list the agent tables and show the latest run's status, picks, and roasters checked. Verify the connection is read-only." | PostgreSQL's MCP tools are discovered through Aspire, with restricted access. Query `Runs`, then `SHOW transaction_read_only`; this is the agent backend, not the native app's local journal database. |
 | 7. Close the edit/verify loop (2 min) | "Change the web heading to 'From cupboard to coffee', build and lint it, then use Playwright to confirm the new heading and that the live ledger still appears." Show the Vite update and the browser evidence. | The coding agent can change code and verify rendered behavior with browser automation. For a native change, use the separate build/deploy/DevFlow loop; do not claim the removed private MAUI hot-reload callbacks still work. |
+| 8. Bring the control room into Copilot (1 min) | Open the Aspire AppHosts canvas, show its Resources and Graph tabs, then choose **Run agent** on the API card and watch the app/web update. | The project-local canvas exposes the same AppHost-defined commands, endpoints, health, and diagnostics inside Copilot. No duplicate command wiring. |
 
 Finish with: **"The coding agent can see the UI, operate the app, inspect
 the services and database, and prove its change against the running system."**
+
+The canvas is installed in `.github/extensions/aspire-apphosts` from
+[`microsoft/aspire-skills`](https://github.com/microsoft/aspire-skills/tree/main/extensions/aspire-apphosts),
+with its upstream MIT license. Open it with `open_aspire_apphosts` targeting
+`src/BaristaNotes.AppHost/BaristaNotes.AppHost.csproj`. Custom commands live
+on their owning resource cards; the Graph tab is read-only. The **Stop
+window off** command was exercised successfully through the canvas command
+handler without resetting data or creating orders.
 
 Optional extensions:
 
